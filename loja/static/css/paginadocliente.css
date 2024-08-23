@@ -1,0 +1,16 @@
+.margem {
+    margin-left: 40px !important; /* Ajuste o valor conforme necessário */
+    margin-right: 40px !important;
+    margin-top: 30 !important;
+}
+
+.centralizar{
+    text-align: center !important;
+}
+
+.btn-primary{
+    padding: 9px 16px !important; /* Ajuste conforme necessário */
+    font-size: 1.2rem !important; /* Ajuste conforme necessário */
+}
+
+

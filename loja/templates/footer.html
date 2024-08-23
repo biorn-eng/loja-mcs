@@ -1,0 +1,51 @@
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+{% endblock head %}
+
+{% block content %}
+<div class="content"></div>
+
+<footer class="footer">
+  <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-4 text-center">
+            <ul class="list-container">
+              <p>ATENDIMENTO</p>
+              <li><a class="foot-link" href="/">Whatsapp<P>(47)996577598</P></a></li>
+              <li><a class="foot-link" href="/">Horários de funcionamento:
+                <p>Segunda a Sexta das 9h às 19h.<p>Aos Sábados das 10h às 12h</p>
+              </a></li>              
+            </ul>
+          </div>
+          
+          <div class="col-12 col-md-4 text-center">
+            <ul class="list-container">
+              <p>INSTITUCIONAL</p>
+              <li><a class="foot-link" href="/">Empresa</a></li>
+              <li><a class="foot-link" href="/">Perguntas Frequentes</a></li>
+              <li><a class="foot-link" href="/">Prazo de envio</a></li>
+              <li><a class="foot-link" href="/">Política de troca</a></li>
+            </ul>
+          </div>
+          
+          <div class="col-12 col-md-4 text-center">
+            <div class="certifications">
+                <p>FORMA DE PAGAMENTO</p>
+                <img src="{{ url_for('static', filename='logosloja/mercadopago.png') }}" class="certification-image" alt="" />                  
+            </div>
+        </div>
+      </div>
+
+      <div class="separator"></div> <!-- Linha separadora -->
+
+      <div class="row">
+          <div class="col text-center">
+              <div class="text">
+                  <p>Desenvolvido por iamabielmachado@gmail.com</p>
+                  <p>Copyright ©2024 materiaisdeconstrucaodoshape.com.br. Todos os direitos reservados - Palhoça - SC</p>                
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>
+{% endblock content %}

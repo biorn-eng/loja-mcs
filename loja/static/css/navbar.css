@@ -1,0 +1,53 @@
+.navbar {
+    background-color: #2e2e2e !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar .navbar-brand, .navbar .nav-link {
+    color: #fffefe !important;
+}
+
+.navbar .nav-link:hover {
+    color: #ef1818 !important;
+}
+
+.navbar .nav-item .dropdown-menu {
+    background-color: #f8f9fa;
+}
+
+.navbar .dropdown-item:hover {
+    background-color: #ff0000;
+    color: white !important;
+}
+
+.form-inline {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 400px !important; /* Ajuste a largura conforme necessário */
+    border-radius: 5px !important;
+}
+
+.search-button {
+    border-radius: 5px !important;
+    padding: 0.5rem 1rem;
+}
+
+.search-button i {
+    font-size: 1rem; /* Ajuste o tamanho do ícone conforme necessário */
+}
+
+.nav-link i {
+    margin-right: 5px !important; /* Espaçamento entre o ícone e o texto */
+}
+
+.navbar-top {
+    border-bottom: 1px solid #ddd; /* Linha entre as seções */
+}
+
+.navbar-divider {
+    border-bottom: 1px solid #ddd !important; /* Linha entre as seções */
+    margin: 4px 0 !important; /* Espaçamento acima e abaixo da linha */
+}

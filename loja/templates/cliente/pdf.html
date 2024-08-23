@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nota Fiscal - {{ notafiscal }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .total {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .imp {
+            font-size: 1em;
+            font-weight: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nota Fiscal</h1>
+        <h2>Pedido: {{ notafiscal }}</h2>
+        <h3>Cliente: {{ cliente.name }}</h3>
+        <p>Email: {{ cliente.email }}</p>
+        <p>Telefone: {{ cliente.contact }}</p>
+        <p>Endereço: {{ cliente.address }}, {{ cliente.city }}, {{ cliente.state }}, {{ cliente.country }}</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Cor</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Desconto</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, produto in pedidos.pedido.items() %}
+                {% set total_price = produto.price|float * produto.quantity|int %}
+                {% set discount = "%0.2f" |format((produto.discount/100) * total_price) %}
+                {% set subtotal = total_price - discount|float %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ produto.name }}</td>
+                    <td>{{ produto.color|capitalize }}</td>
+                    <td>R${{ produto.price }}</td>
+                    <td>{{ produto.quantity }}</td>
+                    <td>{{ produto.discount }}% = {{ discount }}</td>
+                    <td>R${{ "%0.2f"|format(subtotal) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <p class="imp">Imposto: R$ {{ imposto }}</p>
+        <p class="total">Total a pagar: R$ {{ gTotal }}</p>
+    </div>
+</body>
+</html>

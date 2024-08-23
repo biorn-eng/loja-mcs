@@ -1,0 +1,15 @@
+{% extends 'layouts.html' %}
+
+{% block content %}
+
+<hi>OBRIGADO POR COMPRAR CONOSCO</hi>
+
+<div class="container-fluid">
+<p>   
+<form action="{{url_for('home')}}" method="GET">
+    <button type="submit" class="btn btn-success">Voltar ao site</button>
+</form>
+</p> 
+</div>
+
+{% endblock content %}

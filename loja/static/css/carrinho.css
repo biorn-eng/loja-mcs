@@ -1,0 +1,188 @@
+/* Garantir que a tabela se ajuste bem em diferentes tamanhos de tela */
+.table-responsive {
+    overflow-x: auto !important;
+}
+
+.color-select, .tamanho-select {
+    font-size: 0.9rem !important; /* Tamanho da fonte um pouco maior */
+    padding: 0.25rem 0.5rem !important; /* Padding ajustado */
+    max-width: 150px !important; /* Largura máxima suficiente para opções mais longas */
+    width: auto !important; /* Permitir que o select ajuste a largura conforme o conteúdo */
+    display: inline-block !important; /* Garantir que o select seja exibido corretamente */
+}
+
+
+/* Estilos específicos para a caixa de seleção de quantidade */
+.quantity-input {
+    font-size: 0.9rem !important; /* Ajusta o tamanho da fonte */
+    padding: 0.25rem 0.5rem !important; /* Ajusta o padding */
+    max-width: 50px !important; /* Ajusta a largura máxima */
+}
+
+/* Ajuste o tamanho dos botões e ícones */
+.btn-icon {
+    font-size: 1rem !important; /* Ajuste o tamanho dos ícones */
+    padding: 0.3rem !important; /* Ajuste o padding do botão */
+}
+
+/* Estilo para garantir que a tabela não sobrecarregue a tela em dispositivos pequenos */
+.table {
+    margin-bottom: 0 !important;
+}
+
+/* Ajuste o tamanho da imagem */
+.table img {
+    max-width: 60px !important;
+    max-height: 40px !important;
+}
+
+/* Ajuste o layout da summary-details para garantir que fique bem em dispositivos pequenos */
+.summary-details {
+    font-size: 0.9rem !important;
+    margin-top: 1rem !important;
+}
+
+/* Tabela que ocupa toda a largura da página */
+.full-width-table {
+    width: 100% !important; /* Garante que a tabela ocupe toda a largura da página */
+}
+
+.full-width-table .btn {
+    display: inline-block !important;
+}
+
+.align-right .btn {
+    margin-right: 25px !important; /* Adiciona uma margem à direita do botão */
+}
+
+/* Torna o texto em negrito e ajusta o tamanho da fonte */
+.total-pagar {
+    font-weight: bold !important; /* Torna o texto em negrito */
+    font-size: 1em !important; /* Aumenta o tamanho da fonte */
+}
+
+/* Media queries para ajustes em dispositivos pequenos */
+@media (max-width: 768px) {
+    .table img {
+        max-width: 50px !important;
+        max-height: 30px !important;
+    }
+
+    .btn-icon {
+        font-size: 1rem !important;
+        padding: 0.2rem !important;
+    }
+
+    .btn-compra {
+        font-size: 0.9rem !important;
+        padding: 0.4rem 0.8rem !important;
+    }
+
+    .form-control {
+        font-size: 0.8rem !important; /* Reduz o tamanho da fonte para dispositivos pequenos */
+        max-width: 120px !important; /* Reduz a largura máxima das caixas de seleção */
+    }
+
+    .table th, .table td {
+        padding: 4px !important;
+        line-height: 1.1 !important;
+    }
+
+    .card {
+        height: auto !important; /* Permite que a altura do card se ajuste automaticamente */
+    }
+
+    .action-button {
+        margin-right: 5px !important; /* Ajusta a margem entre os botões */
+        margin-bottom: 10px !important; /* Ajusta a margem inferior */
+    }
+}
+
+/* Garante que o conteúdo esteja alinhado à direita */
+.d-flex.align-items-end {
+    align-items: flex-end !important;
+    text-align: right !important;
+    margin-right: 40px;
+}
+
+/* Adiciona uma margem superior ao botão para separá-lo do resumo */
+.mt-2 {
+    margin-top: 0.5rem !important; /* Ajuste conforme necessário */
+}
+
+/* Ajusta a margem superior do resumo */
+.mt-4 {
+    margin-top: 1.5rem !important; /* Ajuste conforme necessário */
+}
+
+/* Ajusta o estilo do botão de finalizar compra */
+.btn-compra {
+    background-color: rgb(26, 24, 24) !important; /* Cor de fundo */
+    color: #fff !important; /* Cor do texto */
+    border: none !important; /* Remover borda */
+    padding: 8px 16px !important; /* Espaçamento interno */
+    font-size: 26px !important; /* Tamanho da fonte */
+    border-radius: 5px !important; /* Bordas arredondadas */
+    cursor: pointer !important; /* Cursor de ponteiro */
+    transition: background-color 0.3s, transform 0.3s !important; /* Transições */
+}
+
+.btn-compra:hover {
+    background-color: rgb(141, 51, 51) !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+.action-button {
+    margin-right: 10px !important; /* Adiciona uma margem à direita de cada botão */
+    margin-bottom: 20px !important; /* Ajuste conforme necessário */
+}
+
+.margem {
+    margin-left: 30px !important; /* Ajuste o valor conforme necessário */
+    margin-right: 30px !important;
+}
+
+.card {
+    height: 200px; /* Altura fixa */
+    min-height: 150px; /* Altura mínima */
+    padding: 10px; /* Reduzir o padding */
+    margin: 10px 0; /* Reduzir o margin */
+    font-size: 14px; /* Reduzir o tamanho da fonte */
+}
+
+.table-bordered {
+    height: auto; /* Altura automática */
+    font-size: 14px; /* Reduzir o tamanho da fonte */
+    border: none !important; /* Remove a borda da tabela */
+}
+
+.table-bordered th, .table-bordered td {
+    border: none !important; /* Remove as bordas das células */
+    padding: 5px !important; /* Reduzir o padding */
+    vertical-align: middle !important; /* Alinhamento vertical */
+    line-height: 1.2 !important; /* Ajustar a altura da linha */
+}
+
+.btn-black {
+    background-color: rgb(26, 24, 24) !important; /* Cor de fundo */
+    color: #fff !important; /* Cor do texto */
+    border: none !important; /* Remover borda */
+    padding: 8px 16px !important; /* Espaçamento interno */
+    font-size: 20px !important; /* Tamanho da fonte */
+    border-radius: 5px !important; /* Bordas arredondadas */
+    cursor: pointer !important; /* Cursor de ponteiro */
+    transition: background-color 0.3s, transform 0.3s !important; /* Transições */
+    margin-top: 10px !important;
+}
+
+.btn-black:hover {
+    background-color: rgb(223, 223, 223) !important;
+    color: #0e0d0d !important;
+    text-decoration: none !important;
+}
+
+.end-total{
+    font-size:14 !important;
+}
+

@@ -1,0 +1,48 @@
+{% extends "layouts.html" %}
+
+{% block content %}
+<h1>Pedidos</h1> 
+<a href="{{ url_for('admin') }}">Voltar para admin</a>
+
+<p><strong>Valor Total de Todos os Pedidos: R$ {{ total_pedidos }}</strong></p>  <!-- Linha para exibir o total dos pedidos -->
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nota Fiscal</th>
+            <th>Cliente</th>
+            <th>Data do Pedido</th>
+            <th>Status</th>
+            <th>Total Pago</th>
+            <th>Detalhes</th>
+            <th>Enviado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in pedidos %}
+        <tr>
+            <td>{{ item.pedido.id }}</td>
+            <td>{{ item.pedido.notafiscal }}</td>
+            <td>{{ item.cliente.name }}</td>
+            <td>{{ item.pedido.data_criado }}</td>
+            <td>{{ item.pedido.status }}</td>
+            <td>R$ {{ item.pedido.total_pago if item.pedido.total_pago else 0 }}</td>
+            <td><a href="{{ url_for('detalhes_pedido', pedido_id=item.pedido.id) }}">Ver Detalhes</a></td>
+            <td>
+                <form action="{{ url_for('atualizar_status', pedido_id=item.pedido.id) }}" method="POST">
+                    <select name="status">
+                        <option value="" {% if item.pedido.status == '' %}selected{% endif %}></option>
+                        <option value="preparando para envio" {% if item.pedido.status == 'preparando para envio' %}selected{% endif %}>Preparando para Envio</option>
+                        <option value="enviado" {% if item.pedido.status == 'enviado' %}selected{% endif %}>Enviado</option>
+                        <option value="cancelado" {% if item.pedido.status == 'cancelado' %}selected{% endif %}>Cancelado</option>
+                        <!-- Adicione mais opções se necessário -->
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary">Atualizar Status</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

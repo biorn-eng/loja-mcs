@@ -1,0 +1,56 @@
+{% extends 'layouts.html' %}
+
+{% block content %}
+
+{% include '_messages.html' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 p-2">
+            <h2 class="text-center">Adicionar Produtos</h2>
+            {% from "_formhelpers.html" import render_field %}
+            <form action="" method="POST" enctype="multipart/form-data">
+                
+                {{ render_field(form.name, class="form-control", placeholder="Nome do produto")}}            
+                {{ render_field(form.price, class="form-control", placeholder="Preço do produto")}}
+                {{ render_field(form.discount, class="form-control", placeholder="Desconto do produto")}}
+                {{ render_field(form.stock, class="form-control", placeholder="Estoque do produto")}}
+
+                <label for="marca">Adicionar uma marca</label>
+                <select name="marca" id="marca" class="form-control" required>
+                    <option value="">Selecione uma marca</option>
+                    {% for marca in marcas %}
+                    <option value="{{ marca.id }}">{{ marca.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="categoria">Adicionar uma categoria</label>
+                <select name="categoria" id="categoria" class="form-control" required>
+                    <option value="">Selecione uma categoria</option>
+                    {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}">{{ categoria.name }}</option>
+                    {% endfor %}
+                </select>
+
+                {{ render_field(form.color, class="form-control", placeholder="Cor do produto")}}
+                {{ render_field(form.tamanho, class="form-control", placeholder="Tamanho do produto")}}
+                {{ render_field(form.discription, class="form-control", placeholder="Descrição do produto", rows="10")}}
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">{{ render_field(form.image_1, class="form-control")}}</div>
+                        <div class="col-md-4">{{ render_field(form.image_2, class="form-control")}}</div>
+                        <div class="col-md-4">{{ render_field(form.image_3, class="form-control")}}</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-4">Cadastrar</button>
+
+            </form>
+            <a href="{{url_for('admin')}}" class="btn btn-danger" style="margin-top: -67px; margin-left: 100px;">Cancelar</a>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+{% endblock content %}

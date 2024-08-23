@@ -1,0 +1,37 @@
+{% extends "layouts.html" %}
+
+{% block head %}
+    {{ super() }}  <!-- Preserva o conteúdo do bloco `head` do template base -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/paginadocliente.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome -->
+{% endblock head %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container-fluid">
+    <h1 class="centralizar">Página do Cliente</h1>
+    <div class="row margem">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Suas Compras</h3>
+                    <form action="{{ url_for('pedidos_cliente') }}" method="GET">
+                        <button type="submit" class="btn btn-primary fas fa-shopping-cart"> Seus Pedidos</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Atualizar Informações</h3>
+                    <form action="{{ url_for('atualizar_cliente') }}" method="GET">
+                        <button type="submit" class="btn btn-secondary">Atualizar Cadastro</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'footer.html' %}
+{% endblock content %}

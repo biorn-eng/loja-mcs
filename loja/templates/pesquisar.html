@@ -1,0 +1,75 @@
+{% extends 'layouts.html' %}
+
+{% block head %}
+    {{ super() }}  <!-- Preserva o conteúdo do bloco `head` do template base -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pesquisar.css') }}">
+{% endblock head %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container-fluid">
+    <div class="row">
+        {% if produtos.items %}
+            {% for produto in produtos.items %}
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+                <a href="{{url_for('pagina_unica', id=produto.id)}}" class="card-link">
+                    <div class="card">
+                        <img src="{{url_for('static', filename='images/' + produto.image_1)}}" alt="{{produto.name}}" class="card-img-top">
+                        <div class="card-body">
+                            {% if produto.discount > 0 %}
+                                <span style="text-decoration: line-through; color: rgb(128, 128, 128);">R$ {{produto.price}}</span>
+                                <span style="color: rgb(27, 179, 52);">R$ {{produto.price - (produto.price * produto.discount / 100)}}</span>
+                            {% else %}
+                                <p>R$ {{produto.price}}</p>
+                            {% endif %}
+                            <h4 class="text-center">{{produto.name}}</h4>
+                            <p class="text-center"></p>
+                        </div>
+                        <div class="card-footer">
+                            <form action="{{url_for('AddCart')}}" method="POST" class="d-inline">
+                                <input type="hidden" name="produto_id" value="{{produto.id}}">
+                                <button type="submit" class="btn-add-to-cart btn-lg btn-large-font">Adicionar ao carrinho</button>
+                                <input type="hidden" name="quantity" value="1" min="1" max="{{produto.stock}}">
+                                {% set color = produto.color.split(',') %}
+                                <select name="color" style="position: absolute; left: -9999px;">
+                                    {% for color in color %}
+                                    {% set col = color.split(':') %}
+                                    <option value="{{col[0]}}">{{col[0]|capitalize}}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Nenhum produto encontrado.</p>
+        {% endif %}
+    </div>
+
+    <!-- Pagination logic remains unchanged -->
+    <div class="row">
+        <div class="col text-center">
+            {% if produtos.has_prev %}
+            <a href="{{url_for('search', pagina=produtos.prev_num)}}" class="btn btn-outline-danger btn-sm mt-3">Anterior</a>
+            {% endif %}
+            {% for page_num in produtos.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+            {% if page_num %}
+                {% if page_num == produtos.page %}
+                <a href="{{url_for('search', pagina=page_num)}}" class="btn btn-danger btn-sm mt-3 current">{{page_num}}</a>
+                {% else %}
+                <a href="{{url_for('search', pagina=page_num)}}" class="btn btn-outline-danger btn-sm mt-3">{{page_num}}</a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+            {% endfor %}
+            {% if produtos.has_next %}
+            <a href="{{url_for('search', pagina=produtos.next_num)}}" class="btn btn-outline-danger btn-sm mt-3">Próxima</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

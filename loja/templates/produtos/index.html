@@ -1,0 +1,197 @@
+{% extends 'layouts.html' %}
+
+{% block head %}
+    {{ super() }}  <!-- Preserva o conteúdo do bloco `head` do template base -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock head %}
+
+{% block content %}
+<div class="wrapper">
+    {% include 'navbar.html' %}
+
+    <div class="container my-12">
+    <div class="row margem">
+        {% if marca %}
+        {% for m in marca.items %} {# Usamos 'm' para iterar nos itens da marca #}
+        <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-3">
+            <a href="{{url_for('pagina_unica', id=m.id)}}" class="card-link">
+                <div class="card">
+                    <img src="{{url_for('static', filename='images/' + m.image_1)}}" alt="{{m.name}}" class="card-img-top">
+                    <div class="card-body">
+                        {% if m.discount > 0 %}
+                        {% endif %}
+                        <h4 class="text-center">{{m.name}}</h4>
+                        <p class="text-center-price">
+                            {% if m.discount > 0 %}
+                            <span style="text-decoration: line-through; color: rgb(128, 128, 128);">R$ {{m.price}}</span>
+                            <span style="color: rgb(27, 179, 52);">R$ {{m.price - (m.price * m.discount / 100)}}</span>
+                            {% else %}
+                            R$ {{m.price}}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <form action="{{url_for('AddCart')}}" method="POST" class="d-inline">
+                            {% if m.stock > 0 %}  <!-- Aqui deve ser m.stock ao invés de produto.stock -->
+                                <input type="hidden" name="m_id" value="{{m.id}}">
+                                <button type="submit" class="btn btn-sm btn-add-to-cart">Adicionar ao carrinho</button>
+                                <input type="hidden" name="quantity" value="1" min="1" max="{{m.stock}}">
+                            {% else %}
+                                <span class="btn btn-sm btn-disabled">Esgotado</span>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        </div>
+
+        <!-- Pagination logic remains unchanged -->
+        <div class="row">
+            <div class="col text-center">
+                {% if marca.has_prev %}
+                <a href="{{url_for('get_marca', id=get_m.id, pagina=marca.prev_num)}}" class="btn btn-outline-danger btn-sm mt-3">Anterior</a>
+                {% endif %}
+                {% for page_num in marca.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+                {% if page_num %}
+                {% if page_num == marca.page %}
+                <a href="{{url_for('get_marca', id=get_m.id, pagina=page_num)}}" class="btn btn-danger btn-sm mt-3 current">{{page_num}}</a>
+                {% else %}
+                <a href="{{url_for('get_marca', id=get_m.id, pagina=page_num)}}" class="btn btn-outline-danger btn-sm mt-3">{{page_num}}</a>
+                {% endif %}
+                {% else %}
+                ...
+                {% endif %}
+                {% endfor %}
+                {% if marca.has_next %}
+                <a href="{{url_for('get_marca', id=get_m.id, pagina=marca.next_num)}}" class="btn btn-outline-danger btn-sm mt-3">Próxima</a>
+                {% endif %}
+            </div> 
+        </div>
+
+        <div class="row">
+            {% elif get_cat_prod %}
+            {% for get_cat in get_cat_prod.items %}
+            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-3">
+                <a href="{{url_for('pagina_unica', id=get_cat.id)}}" class="card-link">
+                    <div class="card">
+                        <img src="{{url_for('static', filename='images/' + get_cat.image_1)}}" alt="{{get_cat.name}}" class="card-img-top">
+                        <div class="card-body">
+                            {% if get_cat.discount > 0 %}
+                            {% endif %}
+                            <h4 class="text-center">{{get_cat.name}}</h4>
+                            <p class="text-center-price">
+                                {% if get_cat.discount > 0 %}
+                                <span style="text-decoration: line-through; color: rgb(128, 128, 128);">R$ {{get_cat.price}}</span>
+                                <span style="color: rgb(27, 179, 52);">R$ {{get_cat.price - (get_cat.price * get_cat.discount / 100)}}</span>
+                                {% else %}
+                                R$ {{get_cat.price}}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <form action="{{url_for('AddCart')}}" method="POST" class="d-inline">
+                                {% if get_cat.stock > 0 %}  <!-- Aqui deve ser get_cat.stock ao invés de produto.stock -->
+                                    <input type="hidden" name="get_cat_id" value="{{get_cat.id}}">
+                                    <button type="submit" class="btn btn-sm btn-add-to-cart">Adicionar ao carrinho</button>
+                                    <input type="hidden" name="quantity" value="1" min="1" max="{{get_cat.stock}}">
+                                {% else %}
+                                    <span class="btn btn-sm btn-disabled">Esgotado</span>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            </div>
+
+            <!-- Pagination logic remains unchanged -->
+            <div class="row">
+                <div class="col text-center">
+                    {% if get_cat_prod.has_prev %}
+                    <a href="{{url_for('get_categoria', id=get_cat.id, pagina=get_cat_prod.prev_num)}}" class="btn btn-outline-danger btn-sm mt-3">Anterior</a>
+                    {% endif %}
+                    {% for page_num in get_cat_prod.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+                    {% if page_num %}
+                    {% if page_num == get_cat_prod.page %}
+                    <a href="{{url_for('get_categoria', id=get_cat.id, pagina=page_num)}}" class="btn btn-danger btn-sm mt-3 current">{{page_num}}</a>
+                    {% else %}
+                    <a href="{{url_for('get_categoria', id=get_cat.id, pagina=page_num)}}" class="btn btn-outline-danger btn-sm mt-3">{{page_num}}</a>
+                    {% endif %}
+                    {% else %}
+                    ...
+                    {% endif %}
+                    {% endfor %}
+                    {% if get_cat_prod.has_next %}
+                    <a href="{{url_for('get_categoria', id=get_cat.id, pagina=get_cat_prod.next_num)}}" class="btn btn-outline-danger btn-sm mt-3">Próxima</a>
+                    {% endif %}
+                </div> 
+            </div>
+
+            <div class="row card-container">
+            {% else %}
+            {% for produto in produtos.items %}
+            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mb-3">
+                <a href="{{url_for('pagina_unica', id=produto.id)}}" class="card-link">
+                    <div class="card">
+                        <img src="{{url_for('static', filename='images/' + produto.image_1)}}" alt="{{produto.name}}" class="card-img-top">
+                        <div class="card-body">
+                            {% if produto.discount > 0 %}
+                            {% endif %}
+                            <h4 class="text-center">{{produto.name}}</h4>
+                            <p class="text-center-price">
+                                {% if produto.discount > 0 %}
+                                <span style="text-decoration: line-through; color: rgb(128, 128, 128);">R$ {{produto.price}}</span>
+                                <span style="color: rgb(27, 179, 52);">R$ {{produto.price - (produto.price * produto.discount / 100)}}</span>
+                                {% else %}
+                                R$ {{produto.price}}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <form action="{{url_for('AddCart')}}" method="POST" class="d-inline">
+                                {% if produto.stock > 0 %}
+                                    <input type="hidden" name="produto_id" value="{{produto.id}}">
+                                    <button type="submit" class="btn btn-sm btn-add-to-cart">Adicionar ao carrinho <i class="fas fa-cart-plus"></i></button>
+                                    <input type="hidden" name="quantity" value="1" min="1" max="{{produto.stock}}">
+                                {% else %}
+                                    <span class="btn btn-sm btn-disabled">Esgotado</span>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            </div>
+
+            <!-- Pagination logic remains unchanged -->
+            <div class="row">
+                <div class="col text-center">
+                    {% if produtos.has_prev %}
+                    <a href="{{url_for('home', pagina=produtos.prev_num)}}" class="btn btn-outline-danger btn-sm mt-3">Anterior</a>
+                    {% endif %}
+                    {% for page_num in produtos.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+                    {% if page_num %}
+                    {% if page_num == produtos.page %}
+                    <a href="{{url_for('home', pagina=page_num)}}" class="btn btn-danger btn-sm mt-3 current">{{page_num}}</a>
+                    {% else %}
+                    <a href="{{url_for('home', pagina=page_num)}}" class="btn btn-outline-danger btn-sm mt-3">{{page_num}}</a>
+                    {% endif %}
+                    {% else %}
+                    ...
+                    {% endif %}
+                    {% endfor %}
+                    {% if produtos.has_next %}
+                    <a href="{{url_for('home', pagina=produtos.next_num)}}" class="btn btn-outline-danger btn-sm mt-3">Próxima</a>
+                    {% endif %}
+                </div> 
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock content %}

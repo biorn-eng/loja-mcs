@@ -1,0 +1,30 @@
+{% extends "layouts.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1>Seus Pedidos</h1> <a href="{{ url_for('paginadocliente') }}">Voltar para pagina do cliente</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nota Fiscal</th>               
+                <th>Data do Pedido</th>
+                <th>Status</th>
+                <th>Total Pago</th>                              
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in pedidos %}
+            <tr>
+                <td>{{ item.pedido.id }}</td>
+                <td>{{ item.pedido.notafiscal }}</td>                
+                <td>{{ item.pedido.data_criado }}</td>
+                <td>{{ item.pedido.status }}</td>
+                <td>R$ {{ item.pedido.total_pago if item.pedido.total_pago else 0 }}</td>
+                <td><a href="{{ url_for('suascompras', pedido_id=item.pedido.id) }}">Ver Detalhes</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

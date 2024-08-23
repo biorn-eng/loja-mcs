@@ -1,0 +1,78 @@
+{% extends 'layouts.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/frete.css') }}">
+{% endblock head %}
+
+{% block content %}    
+    
+    <h5 class="fas fa-truck"> Calcular Frete</h5>
+    <form id="frete-form">
+        <input type="text" id="cep" class="frete-form" placeholder="Digite seu CEP:" name="cep">
+        <button type="submit" class="btn btn-sm btn-danger" ><i class="fas fa-map-marker-alt"></i></button>
+    </form>
+    <form id="selecionar-frete-form" style="display:none;">
+        <h4>Selecione o frete:</h4>
+        <div id="opcoes-frete"></div>
+    </form>
+    <div id="resultado-final"></div>
+
+    <script>
+        // Supondo que o subtotal está disponível globalmente na aplicação
+        let valorpagar = parseFloat('{{ valorpagar }}'); // Este valor deve ser passado do backend se necessário.
+
+        document.getElementById('frete-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const cep = document.getElementById('cep').value;
+
+            fetch('/calcular_frete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cep_destino: cep })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const opcoesFrete = document.getElementById('opcoes-frete');
+                opcoesFrete.innerHTML = '';
+
+                if (data.error) {
+                    opcoesFrete.innerHTML = `<p>${data.error}</p>`;
+                } else {
+                    data.forEach((frete, index) => {
+                        opcoesFrete.innerHTML += `
+                            <div>
+                                <input type="radio" id="frete${index}" name="frete" value="${frete.price}" data-service="${frete.name}" data-delivery-time="${frete.delivery_time}">
+                                <label for="frete${index}">${frete.name} - R$ ${frete.price} - ${frete.delivery_time} dias</label>
+                            </div>
+                        `;
+                    });
+                }
+
+                document.getElementById('selecionar-frete-form').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+
+        document.getElementById('selecionar-frete-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const freteSelecionado = document.querySelector('input[name="frete"]:checked');
+            const valorFrete = parseFloat(freteSelecionado.value);
+            const servicoFrete = freteSelecionado.dataset.service;
+            const prazoFrete = freteSelecionado.dataset.deliveryTime;
+
+            const totalComFrete = valorpagar + valorFrete;
+
+            const resultadoFinal = document.getElementById('resultado-final');
+            resultadoFinal.innerHTML = `
+                <p>Você selecionou o frete: ${servicoFrete}</p>                
+            `;
+
+            
+        });
+    </script>
+{% endblock content %}

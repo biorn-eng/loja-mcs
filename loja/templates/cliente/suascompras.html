@@ -1,0 +1,40 @@
+{% extends "layouts.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1>Detalhes do Pedido</h1>
+    <h2>Pedido ID: {{ pedido.id }}</h2>
+    <p>Status: {{ pedido.status }}</p>    
+
+    <h2>Detalhes dos Produtos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome do Produto</th>
+                <th>Quantidade</th>
+                <th>Cor</th>
+                <th>tamanho</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% if produtos %}
+                {% for key, produto in produtos.items() %}
+                    <tr>
+                        <td>{{ produto.name }}</td>
+                        <td>{{ produto.quantity }}</td>
+                        <td>{{ produto.color }}</td>
+                        <td>{{ produto.tamanho }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">Nenhum produto encontrado</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('pedidos_cliente') }}">Voltar para pedidos</a>
+</div>
+{% endblock content %}

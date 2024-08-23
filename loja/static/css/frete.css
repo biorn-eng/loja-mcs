@@ -1,0 +1,50 @@
+/* Geral */
+body {
+    font-family: Arial, sans-serif !important;
+}
+
+/* Formulário de frete */
+.frete-form {
+    max-width: 130px !important;
+    margin: auto !important;
+}
+
+.frete-form {
+    text-align: left !important;
+    margin-bottom: 20px !important;
+}
+
+.frete-form .cep-input {
+    flex: 1 1 auto !important;
+    margin-right: 10px !important;
+    width: 100px !important; /* Ajuste o tamanho da caixa de texto aqui */
+}
+
+.frete-form .form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1 !important; /* Para que o placeholder tenha a mesma opacidade em todos os navegadores */
+}
+
+.frete-form .btn {
+    flex-shrink: 0 !important;
+}
+
+
+
+/* Responsividade */
+@media (max-width: 576px) {
+    .frete-form {
+        padding: 15px !important;
+    }
+
+    .frete-form .d-flex {
+        flex-direction: column !important;
+    }
+
+    .frete-form .cep-input,
+    .frete-form .btn {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-bottom: 10px !important;
+    }
+}

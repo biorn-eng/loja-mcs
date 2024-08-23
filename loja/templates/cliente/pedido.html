@@ -1,0 +1,85 @@
+{% extends 'layouts.html' %}
+
+{% block head %}
+    {{ super() }}  <!-- Preserva o conteúdo do bloco head do template base -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho.css') }}">
+{% endblock head %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<div class="container my-5">
+    {% include '_messages.html' %}
+    <div class="row margem">
+        <div class="col-md-12">
+            Numero do pedido: {{ pedidos.notafiscal }}
+            <br>
+            Status do pedido: {{ pedidos.status }}
+            <br>
+            Nome do cliente: {{ cliente.name }}
+            <br>
+            Email do cliente: {{ cliente.email }}
+            <br>
+            Endereço de entrega: {{ cliente.address }}
+            <br>
+            CEP: {{ cliente.zipcode }}
+            <br><br>
+        </div>
+        <div class="col-md-12">
+            <h4>Resumo do Pedido</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Produto</th>
+                        <th>Qntd</th>
+                        <th>Preço</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in pedidos.pedido.values() %}
+                        <tr>
+                            <td><img src="{{ url_for('static', filename='images/' + item['image']) }}" alt="Produto" style="width: 50px;"></td>
+                            <td>{{ item['name'] }}</td>
+                            <td>{{ item['quantity'] }}</td>
+                            <td>R$ {{ "{:.2f}".format(item['price']|float) }}</td>
+                            <td>R$ {{ "{:.2f}".format((item['price']|float) * item['quantity']) }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4" class="text-right">Desconto:</td>
+                        <td>R$ {{ "{:.2f}".format(discount|float) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right">Subtotal:</td>
+                        <td>R$ {{ "{:.2f}".format(subTotal|float) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right">Imposto (6%):</td>
+                        <td>R$ {{ "{:.2f}".format(imposto|float) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right">Frete:</td>
+                        <td>R$ {{ "{:.2f}".format(frete|float) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right font-weight-bold" style="font-size: 1.2em;">Total a pagar:</td>
+                        <td class="font-weight-bold" style="font-size: 1.2em;">R$ {{ "{:.2f}".format(gTotal|float) }}</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <form action="{{ url_for('pagamento') }}" method="POST">
+                <input type="hidden" name="amount" value="{{ gTotal * 100 }}">
+                <input type="hidden" name="invoice" value="{{ pedidos.notafiscal }}">
+                <button type="submit" class="btn btn-black btn-sm float-right"> Pagar com
+                    <img src="{{ url_for('static', filename='logosloja/mercadologo.png') }}" alt="Mercado Pago" style="width: 120px; margin-right: 5px;"></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}

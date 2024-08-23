@@ -1,0 +1,118 @@
+/* Estilos gerais */
+body {
+    color: rgb(251, 251, 251);
+    background-color: rgb(255, 255, 255);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+p {
+    color: rgb(27, 179, 52)!important;
+    text-align: center !important;
+    font-size: 16px !important; /* Tamanho da fonte */
+}
+
+/* Estilo para links de paginação ativos */
+.btn.current {
+    background-color: #ff0000 !important; /* Cor de fundo para indicar página atual */
+    color: #fff; /* Cor do texto branco */
+    border-color: #ff0000 !important; /* Cor da borda igual à cor de fundo */
+}
+
+.btn.current:hover {
+    background-color: #b30000 !important; /* Cor de fundo mais escura no hover */
+    border-color: #b30000 !important; /* Cor da borda igual à cor de fundo no hover */
+    color: #fff; /* Cor do texto branco */
+}
+
+/* Botão Adicionar ao Carrinho */
+.card-footer {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border-top: none;
+}
+
+.card-footer .btn-add-to-cart {
+    background-color: rgb(141, 51, 51); /* Cor padrão */
+    border-color: rgb(171, 1, 1); /* Cor da borda padrão */
+    color: white; /* Cor do texto */
+    padding: 2px 2px; /* Espaçamento interno */
+    font-size: 12px; /* Tamanho da fonte padrão */
+    cursor: pointer; /* Cursor de ponteiro */
+    border: none; /* Remove a borda padrão */
+    border-radius: 4px; /* Borda arredondada */
+    transition: background-color 0.3s, border-color 0.3s; /* Transição suave para a cor de fundo e borda */
+}
+
+.card-footer .btn-add-to-cart:hover {
+    background-color: rgb(251, 117, 117); /* Cor ao passar o mouse */
+    border-color: rgb(254, 7, 7); /* Cor da borda ao passar o mouse */
+}
+
+/* Modificadores para tamanho do botão e fonte */
+.btn-lg {
+    padding: 8px 40px !important; /* Tamanho maior do botão */
+    font-size: 16px !important; /* Tamanho da fonte maior */
+}
+
+.btn-sm {
+    padding: 4px 8px; /* Tamanho menor do botão */
+    font-size: 12px; /* Tamanho da fonte menor */
+}
+
+.btn-large-font {
+    font-size: 18px; /* Tamanho da fonte maior */
+}
+
+/* Cartões */
+.card {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 150px; /* Ajuste a altura conforme necessário */
+    object-fit: cover; /* Mantém a proporção da imagem */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.card-body h4 {
+    font-size: 1.1rem; /* Ajusta o tamanho do texto */
+}
+
+.card-body p {
+    font-size: 0.9rem; /* Ajusta o tamanho do texto */
+}
+
+.text-center {
+    text-align: center;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Estilo ao texto do card ao passar o mouse */
+.card-link:hover .card-body h4,
+.card-link:hover .card-body p {
+    color: red;
+}
+
+.card-link .card {
+    border: none;
+}
+
+.card-link:hover .card {
+    box-shadow: 0 4px 8px rgba(254, 0, 0, 0.315);
+}
+
+.margem {
+    margin-left: 10px !important; /* Ajuste o valor conforme necessário */
+    margin-right: 10px !important;
+}

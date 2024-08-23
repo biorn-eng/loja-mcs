@@ -1,0 +1,157 @@
+/* Estilos gerais */
+body {
+    color: rgb(251, 251, 251);
+    background-color: rgb(255, 255, 255);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+.text-center-price{
+    color: rgb(27, 179, 52)!important;
+    text-align: center;
+}
+
+/* Estilo para links de paginação ativos */
+.btn.current {
+    background-color: #ff0000 !important; /* Cor de fundo para indicar página atual */
+    color: #fff; /* Cor do texto branco */
+    border-color: #ff0000 !important; /* Cor da borda igual à cor de fundo */
+}
+
+.btn.current:hover {
+    background-color: #b30000 !important; /* Cor de fundo mais escura no hover */
+    border-color: #b30000 !important; /* Cor da borda igual à cor de fundo no hover */
+    color: #fff; /* Cor do texto branco */
+}
+
+/* Botão Adicionar ao Carrinho */
+.card-footer {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border-top: none;
+}
+
+.card-footer .btn-add-to-cart {
+    background-color: rgb(26, 24, 24); /* Cor padrão */
+    border-color: rgb(141, 51, 51); /* Cor da borda padrão */
+    color: white; /* Cor do texto */
+    padding: 8px 8px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte padrão */
+    cursor: pointer; /* Cursor de ponteiro */
+    border: none; /* Remove a borda padrão */
+    border-radius: 4px; /* Borda arredondada */
+    transition: background-color 0.3s, border-color 0.3s; /* Transição suave para a cor de fundo e borda */
+}
+
+.card-footer .btn-add-to-cart:hover {
+    background-color: rgb(141, 51, 51); /* Cor ao passar o mouse */
+    border-color: rgb(254, 7, 7); /* Cor da borda ao passar o mouse */
+    color: white;
+}
+
+/* Modificadores para tamanho do botão e fonte */
+.btn-lg {
+    padding: 8px 40px !important; /* Tamanho maior do botão */
+    font-size: 16px !important; /* Tamanho da fonte maior */
+}
+
+.btn-sm {
+    padding: 4px 8px; /* Tamanho menor do botão */
+    font-size: 12px; /* Tamanho da fonte menor */
+}
+
+.btn-large-font {
+    font-size: 18px; /* Tamanho da fonte maior */
+}
+
+/* Cartões */
+.card {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    width: 100%; /* Isso faz com que a imagem tenha a largura total do card */
+    height: auto; /* Mantém a proporção da imagem */
+    max-height: 160px; /* Ajuste esse valor para o tamanho máximo desejado */
+    object-fit: cover; /* Mantém a proporção da imagem, cortando-a se necessário para caber no card */
+}
+
+
+.card-body h4 {
+    font-size: 1.1rem; /* Ajusta o tamanho do texto */
+}
+
+.card-body p {
+    font-size: 0.9rem; /* Ajusta o tamanho do texto */
+}
+
+.text-center {
+    text-align: center;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Estilo ao texto do card ao passar o mouse */
+.card-link:hover .card-body h4,
+.card-link:hover .card-body p {
+    color: red;
+}
+
+.card-link .card {
+    border: none;
+}
+
+.card-link:hover .card {
+    box-shadow: 0 4px 8px rgba(254, 0, 0, 0.315);
+}
+
+.margem {
+    margin-left: 0px !important; /* Ajuste o valor conforme necessário */
+    margin-right: 0px !important;
+}
+
+
+
+/* Estilização do container que envolve os cards */
+.card-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important; /* Espaçamento entre os cards */
+}
+
+/* Definindo o tamanho uniforme dos cards */
+.card-container .card {
+    flex: 1 1 calc(25% - 20px) !important; /* Cards com 25% da largura do container, ajustando para o gap */
+    max-width: calc(25% - 20px) !important; /* Limita a largura dos cards */
+    min-width: 250px !important; /* Largura mínima para garantir boa exibição em telas menores */
+}
+
+/* Ajustes para responsividade em dispositivos móveis */
+@media (max-width: 768px) {
+    .card-container .card {
+        flex: 1 1 calc(50% - 20px) !important; /* 50% da largura do container para tablets */
+        max-width: calc(50% - 20px) !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-container .card {
+        flex: 1 1 calc(100% - 20px) !important; /* 100% da largura do container para smartphones */
+        max-width: calc(100% - 20px) !important;
+    }
+}
+

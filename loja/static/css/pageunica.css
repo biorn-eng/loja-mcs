@@ -1,0 +1,166 @@
+
+.btn-adicionar-carrinho {
+    background-color: rgb(26, 24, 24) !important; /* Cor de fundo */
+    color: #fff !important; /* Cor do texto */
+    border: none !important; /* Remover borda */
+    padding: 8px 16px !important; /* Espaçamento interno */
+    font-size: 26px !important; /* Tamanho da fonte */
+    border-radius: 5px !important; /* Bordas arredondadas */
+    cursor: pointer !important; /* Cursor de ponteiro */
+    transition: background-color 0.3s, transform 0.3s !important; /* Transições */
+}
+
+.btn-adicionar-carrinho:hover {
+    background-color: rgb(141, 51, 51) !important; /* Cor de fundo ao passar o mouse */
+    transform: scale(1.05) !important; /* Aumentar ligeiramente o tamanho */
+}
+
+#image_container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#m_image_container {
+    width: 100% !important;
+    max-width: 1000px !important;
+    height: 500px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important; /* Centraliza horizontalmente */
+}
+
+#main_image {
+    max-height: 100% !important;
+    max-width: auto !important;
+    object-fit: contain !important; /* Ajusta a imagem para caber na caixa sem cortar */
+}
+
+#s_image {
+    margin-top: 15px !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 10px !important;
+}
+
+.small-image {
+    height: 100px !important;
+    width: auto !important;
+    cursor: pointer !important;
+    margin-right: 10px !important;
+}
+
+.small-image:last-child {
+    margin-right: 0 !important; /* Remove a margem à direita da última imagem */
+}
+
+.small-image:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+
+
+.quantity-input {
+    width: 45px; /* Ajuste a largura conforme necessário */
+    font-size: 14px; /* Ajuste o tamanho da fonte conforme necessário */
+    padding: 2px; /* Ajuste o espaçamento interno conforme necessário */
+}
+
+.product-info {
+    margin-top: 40px; /* Ajuste a margem superior conforme necessário */
+    margin-left: 100px; /* Aumente o valor para ajustar o espaçamento */
+    margin-right: 30px !important;
+}
+
+.form-control{
+    width: 150px !important; /* Ajuste a largura conforme necessário */
+    font-size: 14px !important; /* Ajuste o tamanho da fonte conforme necessário */
+    padding: 2px !important; /* Ajuste o espaçamento interno conforme necessário */
+}
+
+
+
+
+/* AVALIACAO */
+
+.star-rating {
+    direction: rtl;
+    display: inline-flex;
+    font-size: 1.5em;
+    color: #d3d3d3;
+    position: relative;
+}
+.star-rating input {
+    display: none;
+}
+.star-rating label {
+    cursor: pointer;
+}
+.star-rating input:checked ~ label {
+    color: #ffcc00;
+}
+.star-rating input:hover ~ label {
+    color: #ffcc00;
+}
+.star-rating input:checked ~ label:hover,
+.star-rating input:checked ~ label:hover ~ label {
+    color: #ffcc00;
+}
+
+.star-rating {
+    display: inline-flex;
+    font-size: 1.5em;
+    color: #d3d3d3;
+}
+
+.star-rating label {
+    color: #d3d3d3;
+    cursor: default;
+    margin: 0 1px;
+}
+
+.star-rating .checked {
+    color: #ffcc00;
+}
+
+.avaliacao-form {
+margin-top: 10px; /* Ajusta a margem superior do formulário */
+position: relative;
+}
+
+.avaliacao-form .star-rating {
+    margin-top: -10px; /* Ajusta a posição das estrelas */
+    position: absolute;
+    
+}
+
+.avaliacao-form textarea {
+    margin-top: 20px; /* Ajusta o espaçamento entre as estrelas e o textarea */
+}
+
+.avaliacao-form button {
+    margin-top: -30px !important; /* Ajusta a posição do botão */
+    position: relative;
+    
+}
+
+.form-avaliacao{
+    width: 350px !important; /* Ajuste a largura conforme necessário */
+    font-size: 14px !important; /* Ajuste o tamanho da fonte conforme necessário */
+    padding: 2px !important; /* Ajuste o espaçamento interno conforme necessário */
+}
+
+
+.total-marg{
+    margin-left: 20px !important; /* Ajuste o valor conforme necessário */
+    margin-right: 20px !important;
+}
+
+.prod-name{
+    font-size: 70px;
+    text-align: center;
+}
+

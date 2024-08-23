@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Pedido</title>
+</head>
+<body>
+    <h1>Detalhes do Pedido #{{ pedido.id }}</h1>
+    <p>Nota Fiscal: {{ pedido.notafiscal }}</p>
+    <p>Data do Pedido: {{ pedido.data_criado }}</p>
+    <p>Status: {{ pedido.status }}</p>    
+
+    <h2>Informações do Cliente</h2>
+    <p>Nome: {{ cliente.name }}</p>
+    <p>Email: {{ cliente.email }}</p>
+    <p>Telefone: {{ cliente.contact }}</p>
+
+    <h2>Informações de Endereço</h2>
+    <p>Endereço: {{ cliente.address }}</p>
+    <p>Estado: {{ cliente.state }}</p>
+    <p>Cidade: {{ cliente.city }}</p>
+    <p>CEP: {{ cliente.zipcode }}</p>
+
+    <h2>Detalhes dos Produtos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome do Produto</th>
+                <th>Quantidade</th>
+                <th>Cor</th>
+                <th>tamanho</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if produtos %}
+                {% for key, produto in produtos.items() %}
+                    <tr>
+                        <td>{{ produto.name }}</td>
+                        <td>{{ produto.quantity }}</td>
+                        <td>{{ produto.color }}</td>
+                        <td>{{ produto.tamanho }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">Nenhum produto encontrado</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('visualizar_pedidos') }}">Voltar para a lista de pedidos</a>
+</body>
+</html>

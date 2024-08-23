@@ -1,0 +1,136 @@
+{% extends 'layouts.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pageunica.css') }}">
+{% endblock head %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<div class="container my-5" class="total-marg">
+    <h1 class="prod-name">{{ produto.name }}</h1>
+    {% include '_messages.html' %}
+    <div class="row">
+        <div class="col-md-8 col-lg-5 mb-4" id="image_container">
+            <div id="m_image_container">
+                <img id="main_image" src="{{ url_for('static', filename='images/' + produto.image_1) }}" alt="{{ produto.name }}" class="img-fluid">
+            </div>
+            <div class="mt-3 d-flex justify-content-start" id="s_image">
+                <img src="{{ url_for('static', filename='images/' + produto.image_1) }}" alt="{{ produto.name }}" class="small-image img-thumbnail">
+                <img src="{{ url_for('static', filename='images/' + produto.image_2) }}" alt="{{ produto.name }}" class="small-image img-thumbnail">
+                <img src="{{ url_for('static', filename='images/' + produto.image_3) }}" alt="{{ produto.name }}" class="small-image img-thumbnail">
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-7" id="product_description">
+            <div class="product-info">
+                
+                <h1>R$: {{ produto.price }}</h1>
+                {% if produto.discount > 0 %}
+                <p class="text-success">{{ produto.discount }}% de desconto!</p>
+                {% endif %}
+                
+                <form action="{{ url_for('AddCart') }}" method="POST" class="my-3">
+                    <input type="hidden" name="produto_id" value="{{ produto.id }}">
+                    <div class="form-group">
+                        <label for="quantity">Quantidade:</label>
+                        <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ produto.stock }}" class="quantity-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Cor:</label>
+                        <select name="color" id="color" class="form-control">
+                            {% for color in produto.color.split(',') %}
+                            {% set col = color.split(':') %}
+                            <option value="{{ col[0] }}">{{ col[0] | capitalize }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tamanho">Tamanho:</label>
+                        <select name="tamanho" id="tamanho" class="form-control">
+                            {% for tamanho in produto.tamanho.split(',') %}
+                            <option value="{{ tamanho }}">{{ tamanho | capitalize }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-warning btn-adicionar-carrinho" >Adicionar ao carrinho <i class="fas fa-cart-plus"></i></button>
+                </form>
+
+                {% include 'fretepagunica.html' %}
+                
+                
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <hr>
+            <h4>Descrição do Produto</h4>
+            <p>{{ produto.desc }}</p>
+        </div>
+    </div>
+
+
+    
+    <div class="row mt-5">
+        <div class="col-12">
+            <h4>Avaliações:</h4>
+            {% if avaliacoes %}
+                <ul class="list-group">
+                    {% for avaliacao in avaliacoes %}
+                    <li class="list-group-item">
+                        <strong>{{ avaliacao.cliente.username }}</strong>
+                        <div class="star-rating">
+                            {% for i in range(5, 0, -1) %}
+                                <label class="{% if i <= avaliacao.estrelas %}checked{% endif %}">★</label>
+                            {% endfor %}
+                        </div>
+                        <p>{{ avaliacao.comentario }}</p>
+                        <small class="text-muted">{{ avaliacao.data_criado.strftime('%d/%m/%Y') }}</small>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Este produto ainda não possui avaliações.</p>
+            {% endif %}
+
+            <h5 class="mt-4">Avaliar {{ produto.name }}</h5>
+            <form action="{{ url_for('avaliar_produto', produto_id=produto.id) }}" method="POST" class="avaliacao-form">
+                <div class="star-rating">
+                    <input type="radio" id="star5" name="estrelas" value="5" required />
+                    <label for="star5" title="5 estrelas">★</label>
+                    <input type="radio" id="star4" name="estrelas" value="4" required />
+                    <label for="star4" title="4 estrelas">★</label>
+                    <input type="radio" id="star3" name="estrelas" value="3" required />
+                    <label for="star3" title="3 estrelas">★</label>
+                    <input type="radio" id="star2" name="estrelas" value="2" required />
+                    <label for="star2" title="2 estrelas">★</label>
+                    <input type="radio" id="star1" name="estrelas" value="1" required />
+                    <label for="star1" title="1 estrela">★</label>
+                </div>
+                <textarea name="comentario" rows="4" class="form-avaliacao" placeholder="Adicione um comentário..." required></textarea>
+                <button type="submit" class="btn btn-outline-danger mt-3">Enviar Avaliação</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var mainImage = document.getElementById('main_image');
+    var smallImages = document.getElementsByClassName('small-image');
+
+    for (var i = 0; i < smallImages.length; i++) {
+        smallImages[i].addEventListener('click', function() {
+            var imageSrc = this.getAttribute('src');
+            mainImage.setAttribute('src', imageSrc);
+        });
+    }
+</script>
+
+
+{% include 'footer.html' %}
+{% endblock content %}
