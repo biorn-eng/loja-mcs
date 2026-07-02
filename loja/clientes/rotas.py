@@ -14,7 +14,7 @@ from loja.produtos.models import Addproduto
 
 
 # Configurar Mercado Pago
-mp = mercadopago.SDK("APP_USR-3222709748226137-073111-303977dedccdae1a0ff9493a50ee0374-1923594057")
+mp = mercadopago.SDK("APP_USR-2234175534935822-062313-a9e41e3e89eaf8ff5a97d5a77a47bc77-1923594057")
 
 @app.route('/pagamento', methods=['POST'])
 @login_required
@@ -40,12 +40,18 @@ def pagamento():
             "failure": url_for('pagamento_erro', _external=True),
             "pending": url_for('pagamento_pendente', _external=True)
         },
-        "auto_return": "approved",
         "external_reference": notafiscal
     }
-
+    print("SUCCESS URL:", url_for('obrigado', _external=True))
     preference = mp.preference().create(preference_data)
-    preference_id = preference['response']['id']
+
+    print("========== MERCADO PAGO ==========")
+    print(preference)
+    print("==================================")
+
+    if preference.get('status') != 201:
+        flash(f"Erro Mercado Pago: {preference['response'].get('message')}", "danger")
+        return redirect(url_for('pedidos', notafiscal=notafiscal))
 
     return redirect(preference['response']['init_point'])
 
@@ -53,7 +59,11 @@ def pagamento():
 
 
 @app.route('/obrigado')
+@login_required
 def obrigado():
+
+    print("CHEGOU NO OBRIGADO")
+    print(request.args)
     notafiscal = request.args.get('external_reference')
     cliente_pedido = ClientePedido.query.filter_by(cliente_id=current_user.id, notafiscal=notafiscal).order_by(ClientePedido.id.desc()).first()
     if cliente_pedido:

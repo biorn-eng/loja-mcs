@@ -11,9 +11,10 @@
 
 <div class="container my-5" class="total-marg">
     <h1 class="prod-name">{{ produto.name }}</h1>
-    {% include '_messages.html' %}
-    <div class="row">
-        <div class="col-md-8 col-lg-5 mb-4" id="image_container">
+{% include '_messages.html' %}
+<div class="row">
+    <div class="col-md-8 col-lg-5 mb-4">
+        <div class="card" id="image_container">
             <div id="m_image_container">
                 <img id="main_image" src="{{ url_for('static', filename='images/' + produto.image_1) }}" alt="{{ produto.name }}" class="img-fluid">
             </div>
@@ -23,11 +24,12 @@
                 <img src="{{ url_for('static', filename='images/' + produto.image_3) }}" alt="{{ produto.name }}" class="small-image img-thumbnail">
             </div>
         </div>
+    </div>
 
-        <div class="col-md-6 col-lg-7" id="product_description">
+    <div class="col-md-4 col-lg-6">
+        <div class="card" id="product_description">
             <div class="product-info">
-                
-                <h1>R$: {{ produto.price }}</h1>
+                <h1 class="price_tam">R$: {{ produto.price }}</h1>
                 {% if produto.discount > 0 %}
                 <p class="text-success">{{ produto.discount }}% de desconto!</p>
                 {% endif %}
@@ -55,15 +57,15 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-warning btn-adicionar-carrinho" >Adicionar ao carrinho <i class="fas fa-cart-plus"></i></button>
+                    <button type="submit" class="btn btn-warning btn-adicionar-carrinho">Adicionar ao carrinho <i class="fas fa-cart-plus"></i></button>
                 </form>
 
                 {% include 'fretepagunica.html' %}
-                
-                
             </div>
         </div>
     </div>
+</div>
+
     <div class="row mt-5">
         <div class="col-12">
             <hr>
@@ -111,7 +113,7 @@
                     <label for="star1" title="1 estrela">★</label>
                 </div>
                 <textarea name="comentario" rows="4" class="form-avaliacao" placeholder="Adicione um comentário..." required></textarea>
-                <button type="submit" class="btn btn-outline-danger mt-3">Enviar Avaliação</button>
+                <button type="submit" class="btn-avaliation">Enviar Avaliação</button>
             </form>
         </div>
     </div>

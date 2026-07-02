@@ -3,7 +3,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.navbar .navbar-brand, .navbar .nav-link {
+.navbar .nav-link {
     color: #fffefe !important;
 }
 
@@ -50,4 +50,9 @@
 .navbar-divider {
     border-bottom: 1px solid #ddd !important; /* Linha entre as seções */
     margin: 4px 0 !important; /* Espaçamento acima e abaixo da linha */
+}
+
+.navbar .navbar-brand img{
+    height: 120px;
+    border-radius: 10px;
 }

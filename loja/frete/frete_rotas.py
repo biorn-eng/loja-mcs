@@ -3,7 +3,7 @@ from flask import request, jsonify
 from loja import app, db
 
 API_URL = 'https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate'
-TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NTYiLCJqdGkiOiJiZjM5ODdlOTMwNTJjY2Y3ZjNhYzgxZGI1ZjE0OWFmNzEzMmQ2NjAxNTdlYjkyMGRkZTEyN2I5NjYwOWFiNDAzYjhjZDA4YjFlMTY2Y2ZmZiIsImlhdCI6MTcyMzkxMDY2Ny4wNTcwMiwibmJmIjoxNzIzOTEwNjY3LjA1NzAyMywiZXhwIjoxNzU1NDQ2NjY3LjAzNjk3NCwic3ViIjoiOWM5ZjliZGItNzUxZi00NTEzLWJlNDctNmM5YTFlYTQwM2Q2Iiwic2NvcGVzIjpbInNoaXBwaW5nLWNhbGN1bGF0ZSJdfQ.TWlZePpakRgCVkX9tCezBLZseAJCS6l4PupYqHb__dIvABevvnE0_0K7o2NH0Z5bsiWlktTt-7QFl5fK6wlgUcwZY8YoE9vVV49h3Da61fTAngxQh47pzODnR8Z7LUXNeDfaHrox084KDGnvYiKxozXBak3UR6bMnbacUh3vv45KoaXsv_r28A_B1OlXBfMp7orWHI5EPWFeZEJTKtrEJg-FJZxg64-jhA3sAUb2Jxd3dpV2I-8DgIdMu183e2M1AbDiy8VbNTDa9kg2GciQJfN8SZ4y82ua5J3xiDfFBNwfQxeOAELEuF0rrsigR0il2Ys31JjdzLjao5MoJZF8fGTsow-mFnul0IKMpocxHpJJkJAwYxbi8JUDpuAYFaINkGdlhEwQKOyGsq89ZaofJ4cew6FVEPqdQx9gJj8oSD_-ASGXIdLogxnHN09dDTD1VS7psANjwkvgheoKig3m4ODRIbla0UG6JYdE6iiOrmRIX2rQoRlWV4CSw9Dh6FKpniAHIshj3sY6TIPTdiD3h46Evj4aJjqOQ0vTJ6s1XNJhaEcJ60kpjsguQoZQWzOYtH_MJzmCeJqObtFLNIvUBWa0xqwu_NkBNpCNhkkk8lP65_AcYCIsFO7E38QJfbxThCWwzahCJHCf6E8cYiD3tGRF6kqIRCYlY4axBRULg8I'
+TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NTYiLCJqdGkiOiI4YWQ2NTY1ZjRiZjRjMmYyZjgyNDdjOTc0NDI4MTFjY2RhYjdiNDBmZWY1MjdhODc5NjQ4MDM0NDg3NTFhNDUzZGFkMTUwNDQzOGM0NDUyZiIsImlhdCI6MTc4MjE2MDMxOS4yOTQzNzEsIm5iZiI6MTc4MjE2MDMxOS4yOTQzNzQsImV4cCI6MTgxMzY5NjMxOS4yODUwOTYsInN1YiI6IjljOWY5YmRiLTc1MWYtNDUxMy1iZTQ3LTZjOWExZWE0MDNkNiIsInNjb3BlcyI6WyJjYXJ0LXJlYWQiLCJjYXJ0LXdyaXRlIiwiY29tcGFuaWVzLXJlYWQiLCJjb21wYW5pZXMtd3JpdGUiLCJjb3Vwb25zLXJlYWQiLCJjb3Vwb25zLXdyaXRlIiwibm90aWZpY2F0aW9ucy1yZWFkIiwib3JkZXJzLXJlYWQiLCJwcm9kdWN0cy1yZWFkIiwicHJvZHVjdHMtZGVzdHJveSIsInByb2R1Y3RzLXdyaXRlIiwicHVyY2hhc2VzLXJlYWQiLCJzaGlwcGluZy1jYWxjdWxhdGUiLCJzaGlwcGluZy1jYW5jZWwiLCJzaGlwcGluZy1jaGVja291dCIsInNoaXBwaW5nLWNvbXBhbmllcyIsInNoaXBwaW5nLWdlbmVyYXRlIiwic2hpcHBpbmctcHJldmlldyIsInNoaXBwaW5nLXByaW50Iiwic2hpcHBpbmctc2hhcmUiLCJzaGlwcGluZy10cmFja2luZyIsImVjb21tZXJjZS1zaGlwcGluZyIsInRyYW5zYWN0aW9ucy1yZWFkIiwidXNlcnMtcmVhZCIsInVzZXJzLXdyaXRlIiwid2ViaG9va3MtcmVhZCIsIndlYmhvb2tzLXdyaXRlIiwid2ViaG9va3MtZGVsZXRlIiwidGRlYWxlci13ZWJob29rIl19.CHhIEIzwNv2gpiAitlgL9gkbxjOzLAtNlALNjL-3KBejRbe5qtcxP4IlG152c3cvWLaW5PG1CV6HPFF3U8R9KwhhuEgQUucUbD7XCeNGjbK_S0_MOlgnSMzPVUjBV8YFkBdh5JtYE12DRZMb8k6BfH46tsDBx8_jJK6tUXzr2LLbVWMoh-O8ka16__qXhagSxMOzoLMl_zsqqBWmq5_MepJZXBN2cFMQPBZy1YRKLau_OIrvhFT7K-d6Buh9q1NmIpfVjQGIZ60b689j6sE3CBks1xfrduaISunUUpH1B_rlzdcDcQy0jmVq57sHtaQMcyWKZEfO5IClB6EFmuM086S4lZNO4gnI1iUKoWX27njVK5dNH2WfmWMBigCE0HcTrY2Ad4HYFHddD95WOzueBLWzABJUX-hr6VKHaPdMsJmUUOzO1T3t0Kd1tumm3mig8x1G4cV5QZwf91cX8e32fe4REzv-JlYraMuJqHy4uyUjviUsqVMTz8RgkPny0Tx07WVnZyN4XtgvhqgWIcG_3NfsLw6BjMP9wvAH4ZgylJeuA5YYsDRDEqGQY2fKoepTfzX6CDONX9_rMa-cAClGr1L1IqfrtkyDBQ-UzgDP0C4tK4bUeMmPZrc_CTI5Xp3rcO-maYF6MiW9nvFEzKanhHQ9w8Z2FRk-r8BIKtuRLvw'
 
 @app.route('/calcular_frete', methods=['POST'])
 def calcular_frete():
@@ -34,9 +34,19 @@ def calcular_frete():
     }
 
     response = requests.post(API_URL, headers=headers, json=data)
+    print("STATUS:", response.status_code)
+    print("RESPOSTA:")
+    print(response.text)
 
     if response.status_code == 200:
-        fretes = response.json()
-        return jsonify(fretes)
+      fretes = response.json()
+      return jsonify(fretes)
     else:
-        return jsonify({"error": "Erro ao calcular frete"}), 500
+        print("ERRO API:")
+        print("STATUS:", response.status_code)
+        print(response.text[:1000])
+
+    return jsonify({
+        "error": "Erro ao calcular frete",
+        "status": response.status_code
+    }), 500

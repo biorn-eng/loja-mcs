@@ -146,12 +146,24 @@ body {
         flex: 1 1 calc(50% - 20px) !important; /* 50% da largura do container para tablets */
         max-width: calc(50% - 20px) !important;
     }
+
+    .card-footer .btn-add-to-cart {
+        padding: 8px 8px !important; /* Espaçamento interno */
+        font-size: 10px !important; /* Tamanho da fonte padrão */
+      
+    }
 }
 
 @media (max-width: 576px) {
     .card-container .card {
-        flex: 1 1 calc(100% - 20px) !important; /* 100% da largura do container para smartphones */
-        max-width: calc(100% - 20px) !important;
+        flex: 1 1 calc(100% - 5px) !important; /* 100% da largura do container para smartphones */
+        max-width: calc(100% - 5px) !important;
+    }
+
+    .card-footer .btn-add-to-cart {
+        padding: 8px 8px; /* Espaçamento interno */
+        font-size: 12px; /* Tamanho da fonte padrão */
+      
     }
 }
 
