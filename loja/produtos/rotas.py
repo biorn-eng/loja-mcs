@@ -2,11 +2,35 @@ from flask import redirect, render_template, url_for, flash, request, session, c
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 from .forms import Addprodutos
-from loja import db, app, photos
+from loja import db, app
 from .models import Marca, Categoria, Addproduto, Avaliacao
 import secrets, os
 from flask_login import login_required, current_user
 from loja.clientes.model import ClientePedido
+import uuid
+
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
+
+
+def salvar_imagem(arquivo):
+    if not arquivo or arquivo.filename == "":
+        return None
+
+    extensao = arquivo.filename.rsplit(".", 1)[1].lower()
+
+    if extensao not in ALLOWED_EXTENSIONS:
+        return None
+
+    nome = f"{uuid.uuid4().hex}.{extensao}"
+
+    caminho = os.path.join(
+        current_app.config["UPLOAD_FOLDER"],
+        nome
+    )
+
+    arquivo.save(caminho)
+
+    return nome
 
 def marcas():
     marcas = Marca.query.join(Addproduto, (Marca.id == Addproduto.marca_id)).all()
@@ -211,9 +235,9 @@ def addproduto():
         desc = form.discription.data
         marca = request.form.get('marca')
         categoria = request.form.get('categoria')
-        image_1 = photos.save(request.files.get('image_1'), name=secrets.token_hex(10) + ".")
-        image_2 = photos.save(request.files.get('image_2'), name=secrets.token_hex(10) + ".")
-        image_3 = photos.save(request.files.get('image_3'), name=secrets.token_hex(10) + ".")
+        image_1 = salvar_imagem(request.files.get("image_1"))
+        image_2 = salvar_imagem(request.files.get("image_2"))
+        image_3 = salvar_imagem(request.files.get("image_3"))
 
         addpro = Addproduto(name=name, price=price, discount=discount, stock=stock, color=color, tamanho=tamanho, desc=desc, marca_id=marca, categoria_id=categoria, image_1=image_1, image_2=image_2, image_3=image_3)
         db.session.add(addpro)
@@ -252,7 +276,7 @@ def updateproduto(id):
                     os.unlink(os.path.join(current_app.root_path, "static/images/" + produto.image_1))
                 except Exception as e:
                     print(e)
-            produto.image_1 = photos.save(request.files.get('image_1'), name=secrets.token_hex(10) + ".")
+            produto.image_1 = salvar_imagem(request.files.get("image_1"))
 
         if request.files.get('image_2'):
             if produto.image_2:  # Verifique se há uma imagem existente para excluir
@@ -260,7 +284,7 @@ def updateproduto(id):
                     os.unlink(os.path.join(current_app.root_path, "static/images/" + produto.image_2))
                 except Exception as e:
                     print(e)
-            produto.image_2 = photos.save(request.files.get('image_2'), name=secrets.token_hex(10) + ".")
+            produto.image_2 = salvar_imagem(request.files.get("image_2"))
 
         if request.files.get('image_3'):
             if produto.image_3:  # Verifique se há uma imagem existente para excluir
@@ -268,8 +292,8 @@ def updateproduto(id):
                     os.unlink(os.path.join(current_app.root_path, "static/images/" + produto.image_3))
                 except Exception as e:
                     print(e)
-            produto.image_3 = photos.save(request.files.get('image_3'), name=secrets.token_hex(10) + ".")
-        
+            produto.image_3 = salvar_imagem(request.files.get("image_3"))
+
         db.session.commit()
         flash(f'O produto foi atualizado com sucesso', 'success')
         return redirect(url_for('admin'))
