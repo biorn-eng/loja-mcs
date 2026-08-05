@@ -147,7 +147,7 @@ Senha
 E-mail
 
 ```
-admin@teste.com
+testando@gmail.com
 ```
 
 Senha
@@ -162,13 +162,11 @@ Senha
 
 - Cadastro de usuários
 - Login
-- Recuperação de senha
 - Pesquisa de produtos
 - Visualização de produtos
 - Carrinho de compras
 - Atualização de quantidades
 - Remoção de produtos do carrinho
-- Aplicação de cupons de desconto
 - Finalização de pedidos
 - Área administrativa
 
